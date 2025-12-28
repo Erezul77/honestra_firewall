@@ -1,0 +1,23 @@
+# Honestra .vercelignore
+# Prevent Vercel from trying to build parent project files
+
+# Parent project directories
+../../app/
+../../lib/spinoza-razor/
+../../lib/memory/
+../../lib/intake/
+../../test-spinoza-razor.ts
+../../ARCHITECTURE_*.md
+../../COMPARISON_*.md
+../../DEPLOYED.md
+../../EXECUTIVE_SUMMARY.md
+../../IMPLEMENTATION_GUIDE.md
+../../SUCCESS.md
+../../LIVE.md
+../../VERCEL_FIX.md
+
+# Build artifacts from parent
+../../.next/
+../../node_modules/
+../../*.tsbuildinfo
+
