@@ -351,7 +351,226 @@ const teleologyPatterns: { regex: RegExp; reason: string }[] = [
   { regex: /זה\s+היה\s+(?:אמור|צריך)\s+לקרות/, reason: "agent_detection" },
   { regex: /(?:בטח|חייב)\s+(?:יש|שיש)\s+סיבה/, reason: "agent_detection" },
   { regex: /שום\s+דבר\s+לא\s+(?:קורה\s+)?במקרה/, reason: "agent_detection" },
-  { regex: /מישהו\s+(?:עומד\s+)?מאחורי\s+(?:זה|הכל)/, reason: "agent_detection" }
+  { regex: /מישהו\s+(?:עומד\s+)?מאחורי\s+(?:זה|הכל)/, reason: "agent_detection" },
+
+  // ═══════════════════════════════════════════════════════════════════
+  // NARRATIVE FALLACY: Imposing story structure on random events
+  // ═══════════════════════════════════════════════════════════════════
+
+  // === English: Narrative Fallacy ===
+  { regex: /\bthe\s+story\s+of\s+my\s+life\b/i, reason: "narrative_fallacy" },
+  { regex: /\bmy\s+(?:life\s+)?journey\b/i, reason: "narrative_fallacy" },
+  { regex: /\b(?:new|next)\s+chapter\s+(?:in|of)\s+(?:my|life)\b/i, reason: "narrative_fallacy" },
+  { regex: /\bhero(?:'s)?\s+(?:journey|story)\b/i, reason: "narrative_fallacy" },
+  { regex: /\bmy\s+(?:origin|redemption|transformation)\s+story\b/i, reason: "narrative_fallacy" },
+  { regex: /\bthis\s+is\s+(?:my|the)\s+(?:story|narrative)\b/i, reason: "narrative_fallacy" },
+  { regex: /\bplot\s+twist\s+in\s+(?:my|life)\b/i, reason: "narrative_fallacy" },
+  { regex: /\bwriting\s+(?:my|the\s+next)\s+chapter\b/i, reason: "narrative_fallacy" },
+  { regex: /\bthe\s+(?:arc|trajectory)\s+of\s+(?:my|life)\b/i, reason: "narrative_fallacy" },
+
+  // === Hebrew: Narrative Fallacy ===
+  { regex: /הסיפור\s+של\s+(?:חיי|החיים\s+שלי)/, reason: "narrative_fallacy" },
+  { regex: /(?:פרק\s+חדש|פרק\s+הבא)\s+ב(?:חיי|חיים)/, reason: "narrative_fallacy" },
+  { regex: /המסע\s+שלי/, reason: "narrative_fallacy" },
+  { regex: /גיבור\s+(?:הסיפור|החיים)\s+שלי/, reason: "narrative_fallacy" },
+  { regex: /סיפור\s+(?:הגאולה|ההתמרה|המקור)\s+שלי/, reason: "narrative_fallacy" },
+  { regex: /(?:טוויסט|תפנית)\s+(?:בסיפור|בחיים)/, reason: "narrative_fallacy" },
+  { regex: /כותב\s+(?:את\s+)?(?:הפרק|הסיפור)\s+הבא/, reason: "narrative_fallacy" },
+
+  // ═══════════════════════════════════════════════════════════════════
+  // ESSENTIALISM: Fixed identity beliefs that block change
+  // ═══════════════════════════════════════════════════════════════════
+
+  // === English: Essentialism ===
+  { regex: /\bthat(?:'s| is)\s+(?:just\s+)?(?:who|how)\s+I\s+am\b/i, reason: "essentialism" },
+  { regex: /\bI\s+(?:was\s+)?born\s+(?:this\s+way|like\s+this)\b/i, reason: "essentialism" },
+  { regex: /\bit(?:'s| is)\s+in\s+my\s+(?:nature|DNA|genes|blood)\b/i, reason: "essentialism" },
+  { regex: /\bI(?:'ve| have)\s+always\s+been\s+(?:this\s+way|like\s+this)\b/i, reason: "essentialism" },
+  { regex: /\bI\s+can(?:'t| not)\s+change\s+(?:who|what)\s+I\s+am\b/i, reason: "essentialism" },
+  { regex: /\bpeople\s+(?:don't|never)\s+(?:really\s+)?change\b/i, reason: "essentialism" },
+  { regex: /\ba\s+leopard\s+(?:can't|never)\s+change\s+(?:its|his)\s+spots\b/i, reason: "essentialism" },
+  { regex: /\bonce\s+a\s+\w+,?\s+always\s+a\s+\w+\b/i, reason: "essentialism" },
+
+  // === Hebrew: Essentialism ===
+  { regex: /זה\s+(?:פשוט\s+)?מי\s+שאני/, reason: "essentialism" },
+  { regex: /ככה\s+(?:אני|נולדתי)/, reason: "essentialism" },
+  { regex: /זה\s+ב(?:דנ"א|טבע|דם)\s+שלי/, reason: "essentialism" },
+  { regex: /תמיד\s+הייתי\s+(?:ככה|כזה)/, reason: "essentialism" },
+  { regex: /אני\s+לא\s+(?:יכול|מסוגל)\s+להשתנות/, reason: "essentialism" },
+  { regex: /אנשים\s+לא\s+(?:באמת\s+)?משתנים/, reason: "essentialism" },
+  { regex: /פעם\s+\S+\s+תמיד\s+\S+/, reason: "essentialism" },
+
+  // ═══════════════════════════════════════════════════════════════════
+  // VICTIM NARRATIVE: Persistent external blame pattern
+  // ═══════════════════════════════════════════════════════════════════
+
+  // === English: Victim Narrative ===
+  { regex: /\bthey\s+always\s+do\s+this\s+to\s+me\b/i, reason: "victim_narrative" },
+  { regex: /\bnothing\s+(?:ever|good)\s+(?:works|happens)\s+(?:for|to)\s+me\b/i, reason: "victim_narrative" },
+  { regex: /\beveryone\s+is\s+(?:against|out\s+to\s+get)\s+me\b/i, reason: "victim_narrative" },
+  { regex: /\bI(?:'m| am)\s+(?:always\s+)?the\s+(?:victim|one\s+who\s+suffers)\b/i, reason: "victim_narrative" },
+  { regex: /\bwhy\s+does\s+this\s+(?:always|only)\s+happen\s+to\s+me\b/i, reason: "victim_narrative" },
+  { regex: /\bI\s+(?:never|can't)\s+(?:catch|get)\s+a\s+break\b/i, reason: "victim_narrative" },
+  { regex: /\bthe\s+(?:world|universe|life)\s+is\s+(?:against|unfair\s+to)\s+me\b/i, reason: "victim_narrative" },
+  { regex: /\bI(?:'m| am)\s+cursed\b/i, reason: "victim_narrative" },
+
+  // === Hebrew: Victim Narrative ===
+  { regex: /תמיד\s+(?:עושים|מתייחסים)\s+(?:אלי|לי)\s+(?:ככה|כך)/, reason: "victim_narrative" },
+  { regex: /(?:אף\s+פעם|שום\s+דבר)\s+לא\s+(?:יוצא|עובד|מצליח)\s+לי/, reason: "victim_narrative" },
+  { regex: /(?:כולם|העולם)\s+נגדי/, reason: "victim_narrative" },
+  { regex: /אני\s+(?:תמיד\s+)?הקורבן/, reason: "victim_narrative" },
+  { regex: /למה\s+(?:תמיד\s+)?(?:זה|דברים)\s+קורים\s+(?:דווקא\s+)?לי/, reason: "victim_narrative" },
+  { regex: /(?:אני\s+)?(?:מקולל|בלי\s+מזל)/, reason: "victim_narrative" },
+  { regex: /החיים\s+(?:לא\s+)?(?:הוגנים|צודקים)\s+(?:אלי|אתי)/, reason: "victim_narrative" },
+
+  // ═══════════════════════════════════════════════════════════════════
+  // HINDSIGHT BIAS: "I knew it all along" after the fact
+  // ═══════════════════════════════════════════════════════════════════
+
+  // === English: Hindsight Bias ===
+  { regex: /\bI\s+knew\s+(?:it|this)\s+(?:would|was\s+going\s+to)\b/i, reason: "hindsight_bias" },
+  { regex: /\bI\s+(?:always\s+)?knew\s+(?:it|this)\s+(?:all\s+along)?\b/i, reason: "hindsight_bias" },
+  { regex: /\b(?:it\s+)?was\s+(?:so\s+)?obvious\s+(?:from\s+the\s+start)?\b/i, reason: "hindsight_bias" },
+  { regex: /\bI\s+should\s+have\s+(?:known|seen\s+it\s+coming)\b/i, reason: "hindsight_bias" },
+  { regex: /\b(?:anyone|everyone)\s+could\s+(?:have\s+)?(?:seen|predicted)\s+(?:it|this)\b/i, reason: "hindsight_bias" },
+  { regex: /\bthe\s+(?:signs|writing)\s+(?:were|was)\s+(?:all\s+)?there\b/i, reason: "hindsight_bias" },
+  { regex: /\bin\s+(?:hind|retro)sight\b/i, reason: "hindsight_bias" },
+
+  // === Hebrew: Hindsight Bias ===
+  { regex: /ידעתי\s+(?:שזה|שככה)\s+(?:יקרה|יהיה)/, reason: "hindsight_bias" },
+  { regex: /(?:היה\s+)?ברור\s+(?:מראש|מההתחלה)/, reason: "hindsight_bias" },
+  { regex: /הייתי\s+(?:צריך|אמור)\s+לדעת/, reason: "hindsight_bias" },
+  { regex: /(?:כל\s+אחד|כולם)\s+(?:היו\s+)?(?:יכולים\s+)?לראות\s+את\s+זה/, reason: "hindsight_bias" },
+  { regex: /הסימנים\s+היו\s+(?:שם|ברורים)/, reason: "hindsight_bias" },
+  { regex: /במבט\s+(?:לאחור|רטרוספקטיבי)/, reason: "hindsight_bias" },
+
+  // ═══════════════════════════════════════════════════════════════════
+  // MAGICAL THINKING: Belief in non-causal influence
+  // ═══════════════════════════════════════════════════════════════════
+
+  // === English: Magical Thinking ===
+  { regex: /\b(?:the\s+)?law\s+of\s+attraction\b/i, reason: "magical_thinking" },
+  { regex: /\bI(?:'m| am)\s+manifesting\b/i, reason: "magical_thinking" },
+  { regex: /\bI\s+(?:attracted|manifested)\s+(?:this|it)\b/i, reason: "magical_thinking" },
+  { regex: /\bpositive\s+(?:thinking|thoughts?|energy)\s+(?:will|can)\s+(?:bring|attract)\b/i, reason: "magical_thinking" },
+  { regex: /\bsend(?:ing)?\s+(?:good\s+)?(?:vibes|energy|thoughts)\s+(?:to|into)\s+the\s+universe\b/i, reason: "magical_thinking" },
+  { regex: /\bthe\s+universe\s+(?:will\s+)?(?:provide|deliver|give\s+me)\b/i, reason: "magical_thinking" },
+  { regex: /\b(?:put|putting)\s+it\s+out\s+(?:there|into\s+the\s+universe)\b/i, reason: "magical_thinking" },
+  { regex: /\bif\s+I\s+(?:just\s+)?(?:believe|think\s+positive)\s+(?:enough|hard\s+enough)\b/i, reason: "magical_thinking" },
+  { regex: /\bwishing\s+(?:it\s+)?into\s+(?:existence|being|reality)\b/i, reason: "magical_thinking" },
+
+  // === Hebrew: Magical Thinking ===
+  { regex: /חוק\s+המשיכה/, reason: "magical_thinking" },
+  { regex: /(?:אני\s+)?(?:ממניפסט|מגשים)/, reason: "magical_thinking" },
+  { regex: /משכתי\s+(?:את\s+)?(?:זה|הדבר)/, reason: "magical_thinking" },
+  { regex: /(?:מחשבה|אנרגיה)\s+חיובית\s+(?:תביא|תמשוך)/, reason: "magical_thinking" },
+  { regex: /(?:שולח|שלחתי)\s+(?:לעולם|ליקום)/, reason: "magical_thinking" },
+  { regex: /היקום\s+(?:יספק|ייתן|יביא)/, reason: "magical_thinking" },
+  { regex: /אם\s+(?:רק\s+)?(?:אאמין|אחשוב\s+חיובי)\s+מספיק/, reason: "magical_thinking" },
+
+  // ═══════════════════════════════════════════════════════════════════
+  // SIGNS AND OMENS: Seeing meaningful signs in random events
+  // ═══════════════════════════════════════════════════════════════════
+
+  // === English: Signs/Omens ===
+  { regex: /\b(?:it(?:'s| is)|that(?:'s| is))\s+a\s+sign\b/i, reason: "signs_omens" },
+  { regex: /\bthe\s+(?:signs|universe)\s+(?:is|are)\s+(?:telling|showing|sending)\s+me\b/i, reason: "signs_omens" },
+  { regex: /\bI\s+(?:saw|got|received)\s+a\s+sign\b/i, reason: "signs_omens" },
+  { regex: /\b(?:it|this)\s+(?:must\s+)?mean\s+something\b/i, reason: "signs_omens" },
+  { regex: /\bthe\s+universe\s+is\s+(?:sending|giving)\s+me\s+(?:a\s+)?(?:sign|message)\b/i, reason: "signs_omens" },
+  { regex: /\b(?:it's|this\s+is)\s+(?:an?\s+)?omen\b/i, reason: "signs_omens" },
+  { regex: /\b(?:I|we)\s+(?:need|should)\s+(?:to\s+)?(?:pay\s+attention\s+to|heed)\s+(?:the\s+)?signs\b/i, reason: "signs_omens" },
+
+  // === Hebrew: Signs/Omens ===
+  { regex: /זה\s+סימן/, reason: "signs_omens" },
+  { regex: /(?:היקום|העולם)\s+(?:שולח|נותן)\s+לי\s+(?:סימן|מסר)/, reason: "signs_omens" },
+  { regex: /(?:ראיתי|קיבלתי)\s+סימן/, reason: "signs_omens" },
+  { regex: /זה\s+(?:בטח|חייב)\s+(?:אומר|מסמן)\s+משהו/, reason: "signs_omens" },
+  { regex: /(?:צריך|חייב)\s+לשים\s+לב\s+לסימנים/, reason: "signs_omens" },
+  { regex: /זה\s+(?:אות|סימן)\s+(?:מלמעלה|משמיים)/, reason: "signs_omens" },
+
+  // ═══════════════════════════════════════════════════════════════════
+  // PURPOSE QUESTIONS: Teleological "why" questions
+  // ═══════════════════════════════════════════════════════════════════
+
+  // === English: Purpose Questions ===
+  { regex: /\bwhy\s+(?:is\s+this\s+happening|did\s+this\s+happen)\s+to\s+me\b/i, reason: "purpose_question" },
+  { regex: /\bwhat(?:'s| is)\s+the\s+(?:purpose|meaning|point)\s+of\s+(?:this|all\s+this)\b/i, reason: "purpose_question" },
+  { regex: /\bwhat\s+(?:am\s+I|are\s+we)\s+(?:supposed|meant)\s+to\s+learn\s+(?:from\s+this)?\b/i, reason: "purpose_question" },
+  { regex: /\bwhat(?:'s| is)\s+the\s+lesson\s+(?:here|in\s+this)\b/i, reason: "purpose_question" },
+  { regex: /\bwhy\s+me\b/i, reason: "purpose_question" },
+  { regex: /\bthere\s+must\s+be\s+a\s+(?:reason|purpose)\s+(?:for\s+this)?\b/i, reason: "purpose_question" },
+
+  // === Hebrew: Purpose Questions ===
+  { regex: /למה\s+(?:זה|דווקא)\s+(?:קורה|קרה)\s+לי/, reason: "purpose_question" },
+  { regex: /מה\s+(?:המטרה|המשמעות|הטעם)\s+(?:של\s+)?(?:זה|כל\s+זה)/, reason: "purpose_question" },
+  { regex: /מה\s+אני\s+(?:אמור|צריך)\s+ללמוד\s+(?:מזה|מהמצב)/, reason: "purpose_question" },
+  { regex: /מה\s+הלקח\s+(?:כאן|בזה)/, reason: "purpose_question" },
+  { regex: /למה\s+(?:דווקא\s+)?אני/, reason: "purpose_question" },
+  { regex: /(?:בטח|חייב)\s+(?:יש|שיש)\s+(?:סיבה|מטרה)\s+לזה/, reason: "purpose_question" },
+
+  // ═══════════════════════════════════════════════════════════════════
+  // EMOTION PERSONIFICATION: Treating emotions as agents
+  // ═══════════════════════════════════════════════════════════════════
+
+  // === English: Emotion Personification ===
+  { regex: /\bmy\s+(?:fear|anxiety|depression|anger)\s+(?:tells?|says?|wants?|knows?)\b/i, reason: "emotion_personification" },
+  { regex: /\b(?:fear|anxiety|depression|anger)\s+(?:is\s+)?(?:lying|lying\s+to\s+me)\b/i, reason: "emotion_personification" },
+  { regex: /\b(?:fear|anxiety|depression)\s+(?:won't|doesn't)\s+let\s+me\b/i, reason: "emotion_personification" },
+  { regex: /\blistening\s+to\s+(?:my\s+)?(?:fear|anxiety|depression)\b/i, reason: "emotion_personification" },
+  { regex: /\b(?:my\s+)?(?:fear|anxiety|depression)\s+(?:is\s+)?(?:controlling|running)\s+(?:my\s+life|me)\b/i, reason: "emotion_personification" },
+  { regex: /\b(?:my\s+)?inner\s+(?:critic|voice)\s+(?:says?|tells?|wants?)\b/i, reason: "emotion_personification" },
+
+  // === Hebrew: Emotion Personification ===
+  { regex: /(?:הפחד|החרדה|הדיכאון|הכעס)\s+(?:שלי\s+)?(?:אומר|רוצה|יודע)/, reason: "emotion_personification" },
+  { regex: /(?:הפחד|החרדה|הדיכאון)\s+משקר/, reason: "emotion_personification" },
+  { regex: /(?:הפחד|החרדה|הדיכאון)\s+לא\s+(?:נותן|מרשה)\s+לי/, reason: "emotion_personification" },
+  { regex: /להקשיב\s+ל(?:פחד|חרדה|דיכאון)/, reason: "emotion_personification" },
+  { regex: /(?:הפחד|החרדה|הדיכאון)\s+(?:שולט|מנהל)\s+(?:את\s+)?(?:החיים|אותי)/, reason: "emotion_personification" },
+  { regex: /(?:הקול|המבקר)\s+הפנימי\s+(?:שלי\s+)?(?:אומר|רוצה)/, reason: "emotion_personification" },
+
+  // ═══════════════════════════════════════════════════════════════════
+  // TIME TELEOLOGY: Attributing agency to time
+  // ═══════════════════════════════════════════════════════════════════
+
+  // === English: Time Teleology ===
+  { regex: /\btime\s+(?:will\s+)?(?:tell|show|prove|reveal)\b/i, reason: "time_teleology" },
+  { regex: /\btime\s+heals?\s+(?:all\s+)?(?:wounds?)?\b/i, reason: "time_teleology" },
+  { regex: /\btime\s+(?:will\s+)?(?:take\s+care\s+of|sort\s+out|fix)\b/i, reason: "time_teleology" },
+  { regex: /\bgive\s+it\s+time\b/i, reason: "time_teleology" },
+  { regex: /\btime\s+(?:is\s+)?(?:on\s+my|our)\s+side\b/i, reason: "time_teleology" },
+  { regex: /\bonly\s+time\s+(?:will\s+)?(?:tell|know)\b/i, reason: "time_teleology" },
+
+  // === Hebrew: Time Teleology ===
+  { regex: /הזמן\s+(?:יגיד|יראה|יוכיח|יחשוף)/, reason: "time_teleology" },
+  { regex: /הזמן\s+(?:ירפא|מרפא)/, reason: "time_teleology" },
+  { regex: /הזמן\s+(?:יטפל|יסדר|יתקן)/, reason: "time_teleology" },
+  { regex: /(?:תן|תני)\s+לזמן/, reason: "time_teleology" },
+  { regex: /הזמן\s+(?:בצד|עם|לטובת)\s+(?:שלי|שלנו)/, reason: "time_teleology" },
+  { regex: /רק\s+הזמן\s+(?:יגיד|יודע)/, reason: "time_teleology" },
+
+  // ═══════════════════════════════════════════════════════════════════
+  // DESTINY LANGUAGE: Predetermined path/calling
+  // ═══════════════════════════════════════════════════════════════════
+
+  // === English: Destiny Language ===
+  { regex: /\bI(?:'m| am|was)\s+(?:destined|fated)\s+(?:to|for)\b/i, reason: "destiny_language" },
+  { regex: /\b(?:it(?:'s| is)|this\s+is)\s+my\s+(?:destiny|fate|calling)\b/i, reason: "destiny_language" },
+  { regex: /\bmeant\s+(?:to\s+be|for\s+me|for\s+each\s+other)\b/i, reason: "destiny_language" },
+  { regex: /\b(?:it|this)\s+was\s+(?:written|predetermined)\b/i, reason: "destiny_language" },
+  { regex: /\bmy\s+(?:true\s+)?(?:calling|purpose|mission)\s+(?:in\s+life)?\b/i, reason: "destiny_language" },
+  { regex: /\bI\s+was\s+(?:put|placed)\s+(?:here|on\s+earth)\s+(?:to|for)\b/i, reason: "destiny_language" },
+  { regex: /\b(?:we|they)\s+were\s+meant\s+to\s+(?:meet|find\s+each\s+other)\b/i, reason: "destiny_language" },
+  { regex: /\bfate\s+(?:brought|led)\s+(?:us|me)\b/i, reason: "destiny_language" },
+
+  // === Hebrew: Destiny Language ===
+  { regex: /(?:אני\s+)?נועד(?:תי)?\s+ל/, reason: "destiny_language" },
+  { regex: /זה\s+(?:הגורל|היעוד|הייעוד)\s+שלי/, reason: "destiny_language" },
+  { regex: /(?:היינו\s+)?אמורים\s+(?:להיפגש|למצוא\s+אחד\s+את\s+השני)/, reason: "destiny_language" },
+  { regex: /(?:זה\s+)?היה\s+(?:כתוב|נקבע\s+מראש)/, reason: "destiny_language" },
+  { regex: /(?:הייעוד|המשימה|הקריאה)\s+(?:האמיתי|שלי)\s+(?:בחיים)?/, reason: "destiny_language" },
+  { regex: /(?:הושמתי|נשלחתי)\s+(?:לכאן|לעולם)\s+(?:כדי|בשביל)/, reason: "destiny_language" },
+  { regex: /הגורל\s+(?:הפגיש|הוביל)\s+(?:אותנו|אותי)/, reason: "destiny_language" }
 ];
 
 /**
@@ -713,6 +932,177 @@ function rewriteSentence(sentence: string, reason: string): string {
   rewritten = rewritten.replace(/(?:בטח|חייב)\s+(?:יש|שיש)\s+סיבה/gi, "ייתכן שיש הסבר");
   rewritten = rewritten.replace(/שום\s+דבר\s+לא\s+(?:קורה\s+)?במקרה/gi, "לאירועים רבים יש גורמים, אך חלקם מקריים");
   rewritten = rewritten.replace(/מישהו\s+(?:עומד\s+)?מאחורי\s+(?:זה|הכל)/gi, "ייתכן שיש הסבר ל");
+
+  // ═══════════════════════════════════════════════════════════════════
+  // NARRATIVE FALLACY REWRITES
+  // ═══════════════════════════════════════════════════════════════════
+
+  // === English: Narrative Fallacy ===
+  rewritten = rewritten.replace(/\bthe\s+story\s+of\s+my\s+life\b/gi, "events in my life");
+  rewritten = rewritten.replace(/\bmy\s+(?:life\s+)?journey\b/gi, "my experiences so far");
+  rewritten = rewritten.replace(/\b(?:new|next)\s+chapter\s+(?:in|of)\s+(?:my|life)\b/gi, "a new phase I'm entering");
+  rewritten = rewritten.replace(/\bhero(?:'s)?\s+(?:journey|story)\b/gi, "personal development process");
+  rewritten = rewritten.replace(/\bplot\s+twist\s+in\s+(?:my|life)\b/gi, "unexpected event");
+
+  // === Hebrew: Narrative Fallacy ===
+  rewritten = rewritten.replace(/הסיפור\s+של\s+(?:חיי|החיים\s+שלי)/gi, "אירועים בחיי");
+  rewritten = rewritten.replace(/(?:פרק\s+חדש|פרק\s+הבא)\s+ב(?:חיי|חיים)/gi, "שלב חדש שאני נכנס אליו");
+  rewritten = rewritten.replace(/המסע\s+שלי/gi, "החוויות שלי עד כה");
+  rewritten = rewritten.replace(/גיבור\s+(?:הסיפור|החיים)\s+שלי/gi, "התפתחות אישית שלי");
+  rewritten = rewritten.replace(/(?:טוויסט|תפנית)\s+(?:בסיפור|בחיים)/gi, "אירוע בלתי צפוי");
+
+  // ═══════════════════════════════════════════════════════════════════
+  // ESSENTIALISM REWRITES
+  // ═══════════════════════════════════════════════════════════════════
+
+  // === English: Essentialism ===
+  rewritten = rewritten.replace(/\bthat(?:'s| is)\s+(?:just\s+)?(?:who|how)\s+I\s+am\b/gi, "this is how I currently behave");
+  rewritten = rewritten.replace(/\bI\s+(?:was\s+)?born\s+(?:this\s+way|like\s+this)\b/gi, "I developed these patterns early");
+  rewritten = rewritten.replace(/\bit(?:'s| is)\s+in\s+my\s+(?:nature|DNA|genes)\b/gi, "I have a strong tendency toward this");
+  rewritten = rewritten.replace(/\bI(?:'ve| have)\s+always\s+been\s+(?:this\s+way|like\s+this)\b/gi, "I've behaved this way for a long time");
+  rewritten = rewritten.replace(/\bpeople\s+(?:don't|never)\s+(?:really\s+)?change\b/gi, "changing behavior patterns takes effort");
+
+  // === Hebrew: Essentialism ===
+  rewritten = rewritten.replace(/זה\s+(?:פשוט\s+)?מי\s+שאני/gi, "כך אני מתנהג כרגע");
+  rewritten = rewritten.replace(/ככה\s+(?:אני|נולדתי)/gi, "פיתחתי את הדפוסים האלה מוקדם");
+  rewritten = rewritten.replace(/זה\s+ב(?:דנ"א|טבע|דם)\s+שלי/gi, "יש לי נטייה חזקה לזה");
+  rewritten = rewritten.replace(/תמיד\s+הייתי\s+(?:ככה|כזה)/gi, "התנהגתי ככה הרבה זמן");
+  rewritten = rewritten.replace(/אנשים\s+לא\s+(?:באמת\s+)?משתנים/gi, "שינוי דפוסי התנהגות דורש מאמץ");
+
+  // ═══════════════════════════════════════════════════════════════════
+  // VICTIM NARRATIVE REWRITES
+  // ═══════════════════════════════════════════════════════════════════
+
+  // === English: Victim Narrative ===
+  rewritten = rewritten.replace(/\bthey\s+always\s+do\s+this\s+to\s+me\b/gi, "this situation has happened before");
+  rewritten = rewritten.replace(/\bnothing\s+(?:ever|good)\s+(?:works|happens)\s+(?:for|to)\s+me\b/gi, "I've had difficulty achieving this");
+  rewritten = rewritten.replace(/\beveryone\s+is\s+(?:against|out\s+to\s+get)\s+me\b/gi, "I'm experiencing conflict with multiple people");
+  rewritten = rewritten.replace(/\bI(?:'m| am)\s+(?:always\s+)?the\s+victim\b/gi, "I've been harmed in this situation");
+  rewritten = rewritten.replace(/\bwhy\s+does\s+this\s+(?:always|only)\s+happen\s+to\s+me\b/gi, "this difficult situation is recurring");
+
+  // === Hebrew: Victim Narrative ===
+  rewritten = rewritten.replace(/תמיד\s+(?:עושים|מתייחסים)\s+(?:אלי|לי)\s+(?:ככה|כך)/gi, "המצב הזה קרה בעבר");
+  rewritten = rewritten.replace(/(?:אף\s+פעם|שום\s+דבר)\s+לא\s+(?:יוצא|עובד|מצליח)\s+לי/gi, "אני נתקל בקושי להשיג את זה");
+  rewritten = rewritten.replace(/(?:כולם|העולם)\s+נגדי/gi, "אני חווה קונפליקט עם כמה אנשים");
+  rewritten = rewritten.replace(/אני\s+(?:תמיד\s+)?הקורבן/gi, "נפגעתי במצב הזה");
+  rewritten = rewritten.replace(/למה\s+(?:תמיד\s+)?(?:זה|דברים)\s+קורים\s+(?:דווקא\s+)?לי/gi, "המצב הקשה הזה חוזר על עצמו");
+
+  // ═══════════════════════════════════════════════════════════════════
+  // HINDSIGHT BIAS REWRITES
+  // ═══════════════════════════════════════════════════════════════════
+
+  // === English: Hindsight Bias ===
+  rewritten = rewritten.replace(/\bI\s+knew\s+(?:it|this)\s+(?:would|was\s+going\s+to)\b/gi, "looking back, there were signs that");
+  rewritten = rewritten.replace(/\b(?:it\s+)?was\s+(?:so\s+)?obvious\b/gi, "in retrospect, it seems clearer");
+  rewritten = rewritten.replace(/\bI\s+should\s+have\s+(?:known|seen\s+it\s+coming)\b/gi, "with hindsight, I can see patterns");
+  rewritten = rewritten.replace(/\bthe\s+(?:signs|writing)\s+(?:were|was)\s+(?:all\s+)?there\b/gi, "looking back, there were indicators");
+
+  // === Hebrew: Hindsight Bias ===
+  rewritten = rewritten.replace(/ידעתי\s+(?:שזה|שככה)\s+(?:יקרה|יהיה)/gi, "במבט לאחור, היו סימנים ש");
+  rewritten = rewritten.replace(/(?:היה\s+)?ברור\s+(?:מראש|מההתחלה)/gi, "בדיעבד זה נראה ברור יותר");
+  rewritten = rewritten.replace(/הייתי\s+(?:צריך|אמור)\s+לדעת/gi, "במבט לאחור אני רואה דפוסים");
+  rewritten = rewritten.replace(/הסימנים\s+היו\s+(?:שם|ברורים)/gi, "במבט לאחור היו אינדיקציות");
+
+  // ═══════════════════════════════════════════════════════════════════
+  // MAGICAL THINKING REWRITES
+  // ═══════════════════════════════════════════════════════════════════
+
+  // === English: Magical Thinking ===
+  rewritten = rewritten.replace(/\b(?:the\s+)?law\s+of\s+attraction\b/gi, "the belief that thoughts influence outcomes");
+  rewritten = rewritten.replace(/\bI(?:'m| am)\s+manifesting\b/gi, "I'm focusing on what I want");
+  rewritten = rewritten.replace(/\bI\s+(?:attracted|manifested)\s+(?:this|it)\b/gi, "this outcome occurred");
+  rewritten = rewritten.replace(/\bpositive\s+(?:thinking|thoughts?)\s+(?:will|can)\s+(?:bring|attract)\b/gi, "optimism may help motivation toward");
+  rewritten = rewritten.replace(/\bthe\s+universe\s+(?:will\s+)?(?:provide|deliver)\b/gi, "circumstances may develop such that");
+
+  // === Hebrew: Magical Thinking ===
+  rewritten = rewritten.replace(/חוק\s+המשיכה/gi, "האמונה שמחשבות משפיעות על תוצאות");
+  rewritten = rewritten.replace(/(?:אני\s+)?(?:ממניפסט|מגשים)/gi, "אני מתמקד במה שאני רוצה");
+  rewritten = rewritten.replace(/משכתי\s+(?:את\s+)?(?:זה|הדבר)/gi, "התוצאה הזו קרתה");
+  rewritten = rewritten.replace(/(?:מחשבה|אנרגיה)\s+חיובית\s+(?:תביא|תמשוך)/gi, "אופטימיות עשויה לעזור למוטיבציה לכיוון");
+  rewritten = rewritten.replace(/היקום\s+(?:יספק|ייתן|יביא)/gi, "נסיבות עשויות להתפתח כך ש");
+
+  // ═══════════════════════════════════════════════════════════════════
+  // SIGNS/OMENS REWRITES
+  // ═══════════════════════════════════════════════════════════════════
+
+  // === English: Signs/Omens ===
+  rewritten = rewritten.replace(/\b(?:it(?:'s| is)|that(?:'s| is))\s+a\s+sign\b/gi, "this is a notable coincidence");
+  rewritten = rewritten.replace(/\bthe\s+(?:signs|universe)\s+(?:is|are)\s+(?:telling|showing)\s+me\b/gi, "I'm noticing patterns that suggest");
+  rewritten = rewritten.replace(/\bI\s+(?:saw|got|received)\s+a\s+sign\b/gi, "I noticed something that felt meaningful");
+  rewritten = rewritten.replace(/\b(?:it|this)\s+(?:must\s+)?mean\s+something\b/gi, "I'm interpreting this as significant");
+
+  // === Hebrew: Signs/Omens ===
+  rewritten = rewritten.replace(/זה\s+סימן/gi, "זה צירוף מקרים בולט");
+  rewritten = rewritten.replace(/(?:היקום|העולם)\s+(?:שולח|נותן)\s+לי\s+(?:סימן|מסר)/gi, "אני מבחין בדפוסים שמרמזים");
+  rewritten = rewritten.replace(/(?:ראיתי|קיבלתי)\s+סימן/gi, "שמתי לב למשהו שהרגיש משמעותי");
+  rewritten = rewritten.replace(/זה\s+(?:בטח|חייב)\s+(?:אומר|מסמן)\s+משהו/gi, "אני מפרש את זה כמשמעותי");
+
+  // ═══════════════════════════════════════════════════════════════════
+  // PURPOSE QUESTION REWRITES
+  // ═══════════════════════════════════════════════════════════════════
+
+  // === English: Purpose Questions ===
+  rewritten = rewritten.replace(/\bwhy\s+(?:is\s+this\s+happening|did\s+this\s+happen)\s+to\s+me\b/gi, "what are the causes of this situation");
+  rewritten = rewritten.replace(/\bwhat(?:'s| is)\s+the\s+(?:purpose|meaning)\s+of\s+(?:this|all\s+this)\b/gi, "how can I understand this situation");
+  rewritten = rewritten.replace(/\bwhat\s+(?:am\s+I|are\s+we)\s+(?:supposed|meant)\s+to\s+learn\b/gi, "what insights might come from this");
+  rewritten = rewritten.replace(/\bwhy\s+me\b/gi, "what factors led to this");
+
+  // === Hebrew: Purpose Questions ===
+  rewritten = rewritten.replace(/למה\s+(?:זה|דווקא)\s+(?:קורה|קרה)\s+לי/gi, "מהם הגורמים למצב הזה");
+  rewritten = rewritten.replace(/מה\s+(?:המטרה|המשמעות)\s+(?:של\s+)?(?:זה|כל\s+זה)/gi, "איך אני יכול להבין את המצב");
+  rewritten = rewritten.replace(/מה\s+אני\s+(?:אמור|צריך)\s+ללמוד\s+(?:מזה|מהמצב)/gi, "אילו תובנות עשויות לצמוח מזה");
+  rewritten = rewritten.replace(/למה\s+(?:דווקא\s+)?אני/gi, "אילו גורמים הובילו לזה");
+
+  // ═══════════════════════════════════════════════════════════════════
+  // EMOTION PERSONIFICATION REWRITES
+  // ═══════════════════════════════════════════════════════════════════
+
+  // === English: Emotion Personification ===
+  rewritten = rewritten.replace(/\bmy\s+(?:fear|anxiety|depression)\s+(?:tells?|says?)\b/gi, "when I feel anxious, I tend to think");
+  rewritten = rewritten.replace(/\b(?:fear|anxiety|depression)\s+(?:is\s+)?lying\b/gi, "anxious thoughts may distort reality");
+  rewritten = rewritten.replace(/\b(?:fear|anxiety|depression)\s+(?:won't|doesn't)\s+let\s+me\b/gi, "I'm having difficulty due to anxiety");
+  rewritten = rewritten.replace(/\b(?:my\s+)?inner\s+(?:critic|voice)\s+(?:says?|tells?)\b/gi, "I have self-critical thoughts that");
+
+  // === Hebrew: Emotion Personification ===
+  rewritten = rewritten.replace(/(?:הפחד|החרדה|הדיכאון)\s+(?:שלי\s+)?(?:אומר|רוצה)/gi, "כשאני מרגיש חרדה, אני נוטה לחשוב");
+  rewritten = rewritten.replace(/(?:הפחד|החרדה|הדיכאון)\s+משקר/gi, "מחשבות חרדתיות עשויות לעוות את המציאות");
+  rewritten = rewritten.replace(/(?:הפחד|החרדה|הדיכאון)\s+לא\s+(?:נותן|מרשה)\s+לי/gi, "אני מתקשה בגלל חרדה");
+  rewritten = rewritten.replace(/(?:הקול|המבקר)\s+הפנימי\s+(?:שלי\s+)?(?:אומר|רוצה)/gi, "יש לי מחשבות ביקורתיות עצמיות ש");
+
+  // ═══════════════════════════════════════════════════════════════════
+  // TIME TELEOLOGY REWRITES
+  // ═══════════════════════════════════════════════════════════════════
+
+  // === English: Time Teleology ===
+  rewritten = rewritten.replace(/\btime\s+(?:will\s+)?(?:tell|show|prove)\b/gi, "we'll see how things develop");
+  rewritten = rewritten.replace(/\btime\s+heals?\s+(?:all\s+)?(?:wounds?)?\b/gi, "emotional processing takes time");
+  rewritten = rewritten.replace(/\bgive\s+it\s+time\b/gi, "allow time for processing");
+  rewritten = rewritten.replace(/\bonly\s+time\s+(?:will\s+)?(?:tell|know)\b/gi, "the outcome will become clear later");
+
+  // === Hebrew: Time Teleology ===
+  rewritten = rewritten.replace(/הזמן\s+(?:יגיד|יראה|יוכיח)/gi, "נראה איך הדברים יתפתחו");
+  rewritten = rewritten.replace(/הזמן\s+(?:ירפא|מרפא)/gi, "עיבוד רגשי לוקח זמן");
+  rewritten = rewritten.replace(/(?:תן|תני)\s+לזמן/gi, "אפשר זמן לעיבוד");
+  rewritten = rewritten.replace(/רק\s+הזמן\s+(?:יגיד|יודע)/gi, "התוצאה תתברר בהמשך");
+
+  // ═══════════════════════════════════════════════════════════════════
+  // DESTINY LANGUAGE REWRITES
+  // ═══════════════════════════════════════════════════════════════════
+
+  // === English: Destiny Language ===
+  rewritten = rewritten.replace(/\bI(?:'m| am|was)\s+(?:destined|fated)\s+(?:to|for)\b/gi, "I have a strong inclination toward");
+  rewritten = rewritten.replace(/\b(?:it(?:'s| is)|this\s+is)\s+my\s+(?:destiny|fate|calling)\b/gi, "I feel strongly drawn to this");
+  rewritten = rewritten.replace(/\bmeant\s+to\s+be\b/gi, "how things turned out");
+  rewritten = rewritten.replace(/\bmeant\s+for\s+(?:me|each\s+other)\b/gi, "well-suited for");
+  rewritten = rewritten.replace(/\b(?:it|this)\s+was\s+(?:written|predetermined)\b/gi, "this is how events unfolded");
+  rewritten = rewritten.replace(/\bfate\s+(?:brought|led)\s+(?:us|me)\b/gi, "circumstances led to");
+
+  // === Hebrew: Destiny Language ===
+  rewritten = rewritten.replace(/(?:אני\s+)?נועד(?:תי)?\s+ל/gi, "יש לי נטייה חזקה ל");
+  rewritten = rewritten.replace(/זה\s+(?:הגורל|היעוד|הייעוד)\s+שלי/gi, "אני מרגיש משיכה חזקה לזה");
+  rewritten = rewritten.replace(/(?:היינו\s+)?אמורים\s+(?:להיפגש|למצוא)/gi, "הנסיבות הובילו אותנו ל");
+  rewritten = rewritten.replace(/(?:זה\s+)?היה\s+(?:כתוב|נקבע\s+מראש)/gi, "כך האירועים התפתחו");
+  rewritten = rewritten.replace(/הגורל\s+(?:הפגיש|הוביל)\s+(?:אותנו|אותי)/gi, "הנסיבות הובילו את");
 
   return rewritten;
 }
