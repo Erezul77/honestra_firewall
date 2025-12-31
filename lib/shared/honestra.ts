@@ -106,7 +106,73 @@ const teleologyPatterns: { regex: RegExp; reason: string }[] = [
   { regex: /המודל מעניש אותך/, reason: "cosmic_purpose" },
   { regex: /האלגוריתם מעניש אותך/, reason: "cosmic_purpose" },
   { regex: /היקום מנחה/, reason: "cosmic_purpose" },
-  { regex: /זה היה אמור לקרות/, reason: "cosmic_purpose" }
+  { regex: /זה היה אמור לקרות/, reason: "cosmic_purpose" },
+
+  // ═══════════════════════════════════════════════════════════════════
+  // REIFICATION: Attributing intentions/emotions to collectives/abstractions
+  // ═══════════════════════════════════════════════════════════════════
+
+  // === English: Collectives as agents (people, society, community) ===
+  { regex: /\bthe\s+people\s+(?:want|need|demand|desire|feel|believe)s?\b/i, reason: "collective_reification" },
+  { regex: /\bsociety\s+(?:want|need|demand|expect|feel|believe|punish|reward)s?\b/i, reason: "collective_reification" },
+  { regex: /\bthe\s+community\s+(?:want|need|feel|believe|decide)s?\b/i, reason: "collective_reification" },
+  { regex: /\bthe\s+public\s+(?:want|need|demand|feel)s?\b/i, reason: "collective_reification" },
+  { regex: /\bthe\s+nation\s+(?:want|need|demand|feel|believe)s?\b/i, reason: "collective_reification" },
+  { regex: /\bthe\s+masses\s+(?:want|need|demand|feel)s?\b/i, reason: "collective_reification" },
+  { regex: /\bhumanity\s+(?:want|need|desire|deserve)s?\b/i, reason: "collective_reification" },
+
+  // === English: Institutions as agents ===
+  { regex: /\bthe\s+government\s+(?:want|try|feel|believe|decide)s?\b/i, reason: "institutional_reification" },
+  { regex: /\bthe\s+state\s+(?:want|desire|punish|reward)s?\b/i, reason: "institutional_reification" },
+  { regex: /\bthe\s+market\s+(?:want|decide|punish|reward|believe|feel)s?\b/i, reason: "institutional_reification" },
+  { regex: /\bthe\s+economy\s+(?:want|need|demand|punish|reward)s?\b/i, reason: "institutional_reification" },
+  { regex: /\bjustice\s+(?:want|demand|require)s?\b/i, reason: "institutional_reification" },
+  { regex: /\bthe\s+law\s+(?:want|desire|feel)s?\b/i, reason: "institutional_reification" },
+  { regex: /\bthe\s+court\s+(?:feel|believe|want)s?\b/i, reason: "institutional_reification" },
+
+  // === English: Abstract concepts as agents ===
+  { regex: /\bnature\s+(?:want|intend|design|choose|decide|prefer)s?\b/i, reason: "nature_reification" },
+  { regex: /\bnature\s+(?:chose|designed|intended)\b/i, reason: "nature_reification" },
+  { regex: /\bevolution\s+(?:want|intend|design|decide|choose|prefer)s?\b/i, reason: "nature_reification" },
+  { regex: /\bevolution\s+(?:chose|designed|intended)\b/i, reason: "nature_reification" },
+  { regex: /\bhistory\s+(?:want|teach|show|prove|decide|judge)s?\b/i, reason: "history_reification" },
+  { regex: /\bhistory\s+will\s+(?:judge|remember|show)\b/i, reason: "history_reification" },
+  { regex: /\bprogress\s+(?:want|require|demand)s?\b/i, reason: "history_reification" },
+  { regex: /\bscience\s+(?:want|say|tell|believe)s?\b/i, reason: "institutional_reification" },
+
+  // === English: Moral attributions to collectives ===
+  { regex: /\bsociety\s+is\s+(?:evil|good|bad|corrupt|pure)\b/i, reason: "collective_reification" },
+  { regex: /\bthe\s+system\s+is\s+(?:evil|good|bad|corrupt|pure)\b/i, reason: "collective_reification" },
+  { regex: /\bthe\s+world\s+is\s+(?:against|for)\s+(?:me|us|you)\b/i, reason: "cosmic_purpose" },
+
+  // === Hebrew: Collectives as agents ===
+  { regex: /העם\s+(?:רוצה|דורש|מאמין|מרגיש|צריך)/, reason: "collective_reification" },
+  { regex: /החברה\s+(?:רוצה|דורשת|מאמינה|מרגישה|מענישה|מתגמלת)/, reason: "collective_reification" },
+  { regex: /הציבור\s+(?:רוצה|דורש|מאמין|מרגיש)/, reason: "collective_reification" },
+  { regex: /הקהילה\s+(?:רוצה|מאמינה|מרגישה|מחליטה)/, reason: "collective_reification" },
+  { regex: /האומה\s+(?:רוצה|דורשת|מאמינה|מרגישה)/, reason: "collective_reification" },
+  { regex: /האנושות\s+(?:רוצה|צריכה|מגיע לה)/, reason: "collective_reification" },
+
+  // === Hebrew: Institutions as agents ===
+  { regex: /הממשלה\s+(?:רוצה|מנסה|מאמינה|מרגישה)/, reason: "institutional_reification" },
+  { regex: /המדינה\s+(?:רוצה|מענישה|מתגמלת)/, reason: "institutional_reification" },
+  { regex: /השוק\s+(?:רוצה|מחליט|מעניש|מתגמל|מאמין)/, reason: "institutional_reification" },
+  { regex: /הכלכלה\s+(?:רוצה|דורשת|מענישה|מתגמלת)/, reason: "institutional_reification" },
+  { regex: /הצדק\s+(?:רוצה|דורש|מחייב)/, reason: "institutional_reification" },
+  { regex: /החוק\s+(?:רוצה|מרגיש)/, reason: "institutional_reification" },
+  { regex: /המשפט\s+(?:מאמין|מרגיש)/, reason: "institutional_reification" },
+
+  // === Hebrew: Abstract concepts as agents ===
+  { regex: /הטבע\s+(?:רוצה|בחר|תכנן|החליט|מעדיף)/, reason: "nature_reification" },
+  { regex: /האבולוציה\s+(?:רוצה|בחרה|תכננה|החליטה)/, reason: "nature_reification" },
+  { regex: /ההיסטוריה\s+(?:רוצה|מלמדת|מוכיחה|תשפוט|תזכור)/, reason: "history_reification" },
+  { regex: /ההתקדמות\s+(?:רוצה|דורשת|מחייבת)/, reason: "history_reification" },
+  { regex: /המדע\s+(?:רוצה|אומר|מאמין)/, reason: "institutional_reification" },
+
+  // === Hebrew: Moral attributions to collectives ===
+  { regex: /החברה\s+(?:רעה|טובה|מושחתת)/, reason: "collective_reification" },
+  { regex: /המערכת\s+(?:רעה|טובה|מושחתת)/, reason: "collective_reification" },
+  { regex: /העולם\s+(?:נגדי|נגדנו|בעדי|בעדנו)/, reason: "cosmic_purpose" }
 ];
 
 /**
@@ -201,6 +267,78 @@ function rewriteSentence(sentence: string, reason: string): string {
     /האלגוריתם מעניש אותך/gi,
     "האלגוריתם אוכף את הכללים שהוגדרו בו"
   );
+
+  // ═══════════════════════════════════════════════════════════════════
+  // REIFICATION REWRITES
+  // ═══════════════════════════════════════════════════════════════════
+
+  // === English: Collectives ===
+  rewritten = rewritten.replace(/\bthe\s+people\s+want\b/gi, "many people express a preference for");
+  rewritten = rewritten.replace(/\bthe\s+people\s+need\b/gi, "there is a widespread need for");
+  rewritten = rewritten.replace(/\bthe\s+people\s+demand\b/gi, "many people are calling for");
+  rewritten = rewritten.replace(/\bsociety\s+wants\b/gi, "there is social pressure toward");
+  rewritten = rewritten.replace(/\bsociety\s+punishes\b/gi, "social norms discourage");
+  rewritten = rewritten.replace(/\bsociety\s+rewards\b/gi, "social norms encourage");
+  rewritten = rewritten.replace(/\bsociety\s+is\s+evil\b/gi, "certain social patterns cause harm");
+  rewritten = rewritten.replace(/\bsociety\s+is\s+good\b/gi, "certain social patterns are beneficial");
+  rewritten = rewritten.replace(/\bthe\s+nation\s+wants\b/gi, "national policy trends toward");
+
+  // === English: Institutions ===
+  rewritten = rewritten.replace(/\bthe\s+market\s+wants\b/gi, "market forces tend toward");
+  rewritten = rewritten.replace(/\bthe\s+market\s+punishes\b/gi, "market dynamics disadvantage");
+  rewritten = rewritten.replace(/\bthe\s+market\s+rewards\b/gi, "market dynamics favor");
+  rewritten = rewritten.replace(/\bthe\s+market\s+decides\b/gi, "market outcomes result in");
+  rewritten = rewritten.replace(/\bthe\s+government\s+wants\b/gi, "government policy aims at");
+  rewritten = rewritten.replace(/\bjustice\s+demands\b/gi, "principles of justice require");
+  rewritten = rewritten.replace(/\bscience\s+says\b/gi, "scientific evidence indicates");
+  rewritten = rewritten.replace(/\bscience\s+wants\b/gi, "scientific methodology requires");
+
+  // === English: Nature/Evolution ===
+  rewritten = rewritten.replace(/\bnature\s+wants\b/gi, "natural processes tend toward");
+  rewritten = rewritten.replace(/\bnature\s+designed\b/gi, "natural selection produced");
+  rewritten = rewritten.replace(/\bnature\s+chose\b/gi, "natural processes resulted in");
+  rewritten = rewritten.replace(/\bnature\s+intended\b/gi, "natural processes led to");
+  rewritten = rewritten.replace(/\bevolution\s+designed\b/gi, "evolutionary processes produced");
+  rewritten = rewritten.replace(/\bevolution\s+wants\b/gi, "evolutionary pressures favor");
+  rewritten = rewritten.replace(/\bevolution\s+chose\b/gi, "evolutionary processes selected for");
+
+  // === English: History ===
+  rewritten = rewritten.replace(/\bhistory\s+will\s+judge\b/gi, "future assessments may evaluate");
+  rewritten = rewritten.replace(/\bhistory\s+teaches\b/gi, "historical patterns suggest");
+  rewritten = rewritten.replace(/\bhistory\s+shows\b/gi, "historical evidence indicates");
+  rewritten = rewritten.replace(/\bprogress\s+demands\b/gi, "achieving progress requires");
+
+  // === Hebrew: Collectives ===
+  rewritten = rewritten.replace(/העם\s+רוצה/gi, "אנשים רבים מביעים העדפה ל");
+  rewritten = rewritten.replace(/העם\s+דורש/gi, "רבים קוראים ל");
+  rewritten = rewritten.replace(/החברה\s+רוצה/gi, "יש לחץ חברתי לכיוון");
+  rewritten = rewritten.replace(/החברה\s+מענישה/gi, "נורמות חברתיות מרתיעות מ");
+  rewritten = rewritten.replace(/החברה\s+מתגמלת/gi, "נורמות חברתיות מעודדות");
+  rewritten = rewritten.replace(/החברה\s+רעה/gi, "דפוסים חברתיים מסוימים גורמים נזק");
+  rewritten = rewritten.replace(/החברה\s+טובה/gi, "דפוסים חברתיים מסוימים מועילים");
+  rewritten = rewritten.replace(/הציבור\s+רוצה/gi, "רבים מהציבור מעדיפים");
+
+  // === Hebrew: Institutions ===
+  rewritten = rewritten.replace(/השוק\s+רוצה/gi, "כוחות השוק נוטים לכיוון");
+  rewritten = rewritten.replace(/השוק\s+מעניש/gi, "דינמיקת השוק פוגעת ב");
+  rewritten = rewritten.replace(/השוק\s+מתגמל/gi, "דינמיקת השוק מיטיבה עם");
+  rewritten = rewritten.replace(/השוק\s+מחליט/gi, "תוצאות השוק מובילות ל");
+  rewritten = rewritten.replace(/הממשלה\s+רוצה/gi, "מדיניות הממשלה שואפת ל");
+  rewritten = rewritten.replace(/הצדק\s+דורש/gi, "עקרונות הצדק מחייבים");
+  rewritten = rewritten.replace(/המדע\s+אומר/gi, "הראיות המדעיות מצביעות על");
+
+  // === Hebrew: Nature/Evolution ===
+  rewritten = rewritten.replace(/הטבע\s+רוצה/gi, "תהליכים טבעיים נוטים לכיוון");
+  rewritten = rewritten.replace(/הטבע\s+בחר/gi, "תהליכים טבעיים הובילו ל");
+  rewritten = rewritten.replace(/הטבע\s+תכנן/gi, "ברירה טבעית יצרה");
+  rewritten = rewritten.replace(/האבולוציה\s+בחרה/gi, "תהליכים אבולוציוניים העדיפו");
+  rewritten = rewritten.replace(/האבולוציה\s+תכננה/gi, "תהליכים אבולוציוניים יצרו");
+
+  // === Hebrew: History ===
+  rewritten = rewritten.replace(/ההיסטוריה\s+תשפוט/gi, "הערכות עתידיות עשויות לבחון");
+  rewritten = rewritten.replace(/ההיסטוריה\s+מלמדת/gi, "דפוסים היסטוריים מצביעים על");
+  rewritten = rewritten.replace(/ההיסטוריה\s+מוכיחה/gi, "ראיות היסטוריות מראות");
+  rewritten = rewritten.replace(/ההתקדמות\s+דורשת/gi, "השגת התקדמות מחייבת");
 
   return rewritten;
 }

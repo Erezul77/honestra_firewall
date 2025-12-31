@@ -3,7 +3,11 @@
 export type HonestraReason =
   | "anthropomorphic_self"
   | "anthropomorphic_model"
-  | "cosmic_purpose";
+  | "cosmic_purpose"
+  | "collective_reification"      // People, society, community as agents
+  | "institutional_reification"   // Government, market, law as agents
+  | "nature_reification"          // Nature, evolution as intentional agents
+  | "history_reification";        // History, progress as agents
 
 export type HonestraSeverity = "none" | "info" | "warn" | "block";
 
@@ -25,7 +29,7 @@ export interface HonestraGuardPayload {
  * Compute severity from reasons.
  * - none  → no reasons
  * - info  → only anthropomorphic_self
- * - warn  → any anthropomorphic_model or cosmic_purpose
+ * - warn  → anthropomorphic_model, cosmic_purpose, reification types
  * - block → reserved for future (e.g., very high-risk patterns)
  */
 export function computeSeverity(reasons: HonestraReason[]): HonestraSeverity {
@@ -36,8 +40,16 @@ export function computeSeverity(reasons: HonestraReason[]): HonestraSeverity {
   const hasModel = reasons.includes("anthropomorphic_model");
   const hasCosmic = reasons.includes("cosmic_purpose");
   const hasSelf = reasons.includes("anthropomorphic_self");
+  
+  // New reification categories
+  const hasCollective = reasons.includes("collective_reification");
+  const hasInstitutional = reasons.includes("institutional_reification");
+  const hasNature = reasons.includes("nature_reification");
+  const hasHistory = reasons.includes("history_reification");
+  const hasReification = hasCollective || hasInstitutional || hasNature || hasHistory;
 
-  if (hasModel || hasCosmic) {
+  // Reification and cosmic/model patterns are "warn" level
+  if (hasModel || hasCosmic || hasReification) {
     return "warn";
   }
 
