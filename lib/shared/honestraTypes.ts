@@ -7,7 +7,15 @@ export type HonestraReason =
   | "collective_reification"      // People, society, community as agents
   | "institutional_reification"   // Government, market, law as agents
   | "nature_reification"          // Nature, evolution as intentional agents
-  | "history_reification";        // History, progress as agents
+  | "history_reification"         // History, progress as agents
+  | "just_world"                  // Belief world rewards good, punishes bad
+  | "body_teleology"              // Body knows/wants/needs
+  | "tech_animism"                // Technology hates/wants/refuses
+  | "divine_teleology"            // God's plan, divine purpose
+  | "pathetic_fallacy"            // Emotions attributed to nature/weather
+  | "karma"                       // Cosmic justice, what goes around
+  | "conspiracy"                  // "They" hiding truth, coordinated intent
+  | "agent_detection";            // Everything happens for a reason
 
 export type HonestraSeverity = "none" | "info" | "warn" | "block";
 
@@ -28,32 +36,50 @@ export interface HonestraGuardPayload {
 /**
  * Compute severity from reasons.
  * - none  → no reasons
- * - info  → only anthropomorphic_self
- * - warn  → anthropomorphic_model, cosmic_purpose, reification types
- * - block → reserved for future (e.g., very high-risk patterns)
+ * - info  → low-risk patterns (anthropomorphic_self, pathetic_fallacy, tech_animism)
+ * - warn  → medium-risk patterns (most teleological patterns)
+ * - block → high-risk patterns (conspiracy, some divine claims)
  */
 export function computeSeverity(reasons: HonestraReason[]): HonestraSeverity {
   if (!reasons || reasons.length === 0) {
     return "none";
   }
 
+  // High risk - potential for harmful action
+  const hasConspiracy = reasons.includes("conspiracy");
+  
+  // Medium risk - significant teleological distortion
   const hasModel = reasons.includes("anthropomorphic_model");
   const hasCosmic = reasons.includes("cosmic_purpose");
-  const hasSelf = reasons.includes("anthropomorphic_self");
-  
-  // New reification categories
   const hasCollective = reasons.includes("collective_reification");
   const hasInstitutional = reasons.includes("institutional_reification");
   const hasNature = reasons.includes("nature_reification");
   const hasHistory = reasons.includes("history_reification");
-  const hasReification = hasCollective || hasInstitutional || hasNature || hasHistory;
+  const hasJustWorld = reasons.includes("just_world");
+  const hasBody = reasons.includes("body_teleology");
+  const hasDivine = reasons.includes("divine_teleology");
+  const hasKarma = reasons.includes("karma");
+  const hasAgentDetection = reasons.includes("agent_detection");
+  
+  // Low risk - common figures of speech
+  const hasSelf = reasons.includes("anthropomorphic_self");
+  const hasPathetic = reasons.includes("pathetic_fallacy");
+  const hasTech = reasons.includes("tech_animism");
 
-  // Reification and cosmic/model patterns are "warn" level
-  if (hasModel || hasCosmic || hasReification) {
+  // Block level for conspiracy (can lead to harmful actions)
+  if (hasConspiracy) {
+    return "block";
+  }
+
+  // Warn level for most teleological patterns
+  if (hasModel || hasCosmic || hasCollective || hasInstitutional || 
+      hasNature || hasHistory || hasJustWorld || hasBody || 
+      hasDivine || hasKarma || hasAgentDetection) {
     return "warn";
   }
 
-  if (hasSelf) {
+  // Info level for common figures of speech
+  if (hasSelf || hasPathetic || hasTech) {
     return "info";
   }
 

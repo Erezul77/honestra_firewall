@@ -172,7 +172,186 @@ const teleologyPatterns: { regex: RegExp; reason: string }[] = [
   // === Hebrew: Moral attributions to collectives ===
   { regex: /החברה\s+(?:רעה|טובה|מושחתת)/, reason: "collective_reification" },
   { regex: /המערכת\s+(?:רעה|טובה|מושחתת)/, reason: "collective_reification" },
-  { regex: /העולם\s+(?:נגדי|נגדנו|בעדי|בעדנו)/, reason: "cosmic_purpose" }
+  { regex: /העולם\s+(?:נגדי|נגדנו|בעדי|בעדנו)/, reason: "cosmic_purpose" },
+
+  // ═══════════════════════════════════════════════════════════════════
+  // JUST WORLD FALLACY: Belief that the world rewards good and punishes bad
+  // ═══════════════════════════════════════════════════════════════════
+
+  // === English: Just World ===
+  { regex: /\b(?:he|she|they)\s+(?:got|gets)\s+what\s+(?:he|she|they)\s+deserve[ds]?\b/i, reason: "just_world" },
+  { regex: /\b(?:you|we|I)\s+(?:got|get)\s+what\s+(?:you|we|I)\s+deserve[ds]?\b/i, reason: "just_world" },
+  { regex: /\bdeserve[ds]?\s+(?:what|this|that|it)\b/i, reason: "just_world" },
+  { regex: /\b(?:good|bad)\s+things\s+happen\s+to\s+(?:good|bad)\s+people\b/i, reason: "just_world" },
+  { regex: /\bkarma\s+(?:will|is going to)\b/i, reason: "just_world" },
+  { regex: /\bit(?:'s| is)\s+(?:only\s+)?fair\s+that\b/i, reason: "just_world" },
+  { regex: /\bhad\s+it\s+coming\b/i, reason: "just_world" },
+  { regex: /\breap\s+what\s+(?:you|they|we)\s+sow\b/i, reason: "just_world" },
+
+  // === Hebrew: Just World ===
+  { regex: /מגיע\s+(?:לו|לה|להם|לך|לי)/, reason: "just_world" },
+  { regex: /קיבל\s+(?:את\s+)?מה\s+שמגיע/, reason: "just_world" },
+  { regex: /ראוי\s+ל(?:עונש|גמול|שכר)/, reason: "just_world" },
+  { regex: /צדק\s+(?:נעשה|התקיים)/, reason: "just_world" },
+  { regex: /קארמה/, reason: "just_world" },
+
+  // ═══════════════════════════════════════════════════════════════════
+  // BODY TELEOLOGY: Attributing knowledge/intention to the body
+  // ═══════════════════════════════════════════════════════════════════
+
+  // === English: Body Teleology ===
+  { regex: /\byour\s+body\s+(?:knows?|wants?|needs?|is\s+telling|is\s+trying)\b/i, reason: "body_teleology" },
+  { regex: /\bthe\s+body\s+(?:knows?|wants?|needs?|remembers?)\b/i, reason: "body_teleology" },
+  { regex: /\blisten\s+to\s+your\s+body\b/i, reason: "body_teleology" },
+  { regex: /\byour\s+body\s+is\s+(?:wise|smart|intelligent)\b/i, reason: "body_teleology" },
+  { regex: /\byour\s+(?:gut|intuition)\s+(?:knows?|tells?|says?)\b/i, reason: "body_teleology" },
+  { regex: /\byour\s+(?:heart|soul)\s+(?:knows?|wants?|tells?)\b/i, reason: "body_teleology" },
+  { regex: /\binnate\s+(?:wisdom|knowledge|intelligence)\b/i, reason: "body_teleology" },
+
+  // === Hebrew: Body Teleology ===
+  { regex: /הגוף\s+(?:יודע|רוצה|צריך|מנסה|זוכר)/, reason: "body_teleology" },
+  { regex: /תקשיב\s+לגוף/, reason: "body_teleology" },
+  { regex: /הגוף\s+(?:חכם|אינטליגנטי)/, reason: "body_teleology" },
+  { regex: /(?:הבטן|האינטואיציה)\s+(?:יודעת|אומרת)/, reason: "body_teleology" },
+  { regex: /הלב\s+(?:יודע|רוצה|אומר)/, reason: "body_teleology" },
+  { regex: /חוכמה\s+(?:פנימית|מולדת|טבעית)/, reason: "body_teleology" },
+
+  // ═══════════════════════════════════════════════════════════════════
+  // TECHNOLOGY ANIMISM: Attributing intention to non-AI technology
+  // ═══════════════════════════════════════════════════════════════════
+
+  // === English: Technology Animism ===
+  { regex: /\b(?:the\s+)?computer\s+(?:hates?|loves?|wants?|refuses?|decides?)\b/i, reason: "tech_animism" },
+  { regex: /\b(?:the\s+)?(?:phone|laptop|device)\s+(?:hates?|loves?|wants?|refuses?)\b/i, reason: "tech_animism" },
+  { regex: /\b(?:the\s+)?(?:printer|machine)\s+(?:hates?|refuses?|won't)\b/i, reason: "tech_animism" },
+  { regex: /\b(?:the\s+)?(?:app|application|software)\s+(?:wants?|refuses?|won't let)\b/i, reason: "tech_animism" },
+  { regex: /\b(?:the\s+)?internet\s+(?:hates?|wants?|decides?)\b/i, reason: "tech_animism" },
+  { regex: /\btechnology\s+(?:wants?|hates?|loves?)\b/i, reason: "tech_animism" },
+
+  // === Hebrew: Technology Animism ===
+  { regex: /המחשב\s+(?:שונא|אוהב|רוצה|מסרב|מחליט)/, reason: "tech_animism" },
+  { regex: /הטלפון\s+(?:שונא|רוצה|מסרב)/, reason: "tech_animism" },
+  { regex: /המדפסת\s+(?:שונאת|מסרבת|לא רוצה)/, reason: "tech_animism" },
+  { regex: /האפליקציה\s+(?:רוצה|מסרבת|לא נותנת)/, reason: "tech_animism" },
+  { regex: /האינטרנט\s+(?:שונא|רוצה|מחליט)/, reason: "tech_animism" },
+  { regex: /הטכנולוגיה\s+(?:רוצה|שונאת)/, reason: "tech_animism" },
+
+  // ═══════════════════════════════════════════════════════════════════
+  // DIVINE/RELIGIOUS TELEOLOGY: Religious/spiritual purpose attribution
+  // ═══════════════════════════════════════════════════════════════════
+
+  // === English: Divine Teleology ===
+  { regex: /\bgod\s+(?:wants?|wills?|intends?|has\s+a\s+plan)\b/i, reason: "divine_teleology" },
+  { regex: /\bgod(?:'s|s)?\s+(?:plan|will|intention)\b/i, reason: "divine_teleology" },
+  { regex: /\bthe\s+lord\s+(?:wants?|wills?)\b/i, reason: "divine_teleology" },
+  { regex: /\bdivine\s+(?:plan|purpose|will|intention)\b/i, reason: "divine_teleology" },
+  { regex: /\b(?:it's|this\s+is)\s+a\s+(?:test|sign)\s+from\s+(?:god|above|heaven)\b/i, reason: "divine_teleology" },
+  { regex: /\bblessed\s+(?:by|with)\b/i, reason: "divine_teleology" },
+  { regex: /\bcursed\s+(?:by|with)\b/i, reason: "divine_teleology" },
+  { regex: /\bheaven\s+(?:wants?|wills?|sent)\b/i, reason: "divine_teleology" },
+  { regex: /\bprovidence\b/i, reason: "divine_teleology" },
+  { regex: /\bspiritual\s+(?:purpose|meaning|lesson)\b/i, reason: "divine_teleology" },
+
+  // === Hebrew: Divine Teleology ===
+  { regex: /אלוהים\s+(?:רוצה|מתכנן|מבחן)/, reason: "divine_teleology" },
+  { regex: /(?:רצון|תוכנית)\s+(?:ה['׳]|אלוהים)/, reason: "divine_teleology" },
+  { regex: /השגחה\s+(?:עליונה|פרטית|אלוהית)/, reason: "divine_teleology" },
+  { regex: /מבחן\s+(?:מלמעלה|משמיים|אלוהי)/, reason: "divine_teleology" },
+  { regex: /סימן\s+(?:מלמעלה|משמיים)/, reason: "divine_teleology" },
+  { regex: /(?:מבורך|מקולל)\s+(?:על\s+ידי|מ)/, reason: "divine_teleology" },
+  { regex: /הכל\s+(?:בהשגחה|מאת\s+ה['׳])/, reason: "divine_teleology" },
+  { regex: /גזירת\s+(?:שמיים|גורל)/, reason: "divine_teleology" },
+
+  // ═══════════════════════════════════════════════════════════════════
+  // PATHETIC FALLACY: Attributing emotions to nature/weather
+  // ═══════════════════════════════════════════════════════════════════
+
+  // === English: Pathetic Fallacy ===
+  { regex: /\b(?:the\s+)?(?:sky|skies)\s+(?:cry|cries|crying|weep|weeps|weeping)\b/i, reason: "pathetic_fallacy" },
+  { regex: /\b(?:the\s+)?(?:sky|skies)\s+(?:is|are)\s+(?:sad|angry|happy|crying)\b/i, reason: "pathetic_fallacy" },
+  { regex: /\b(?:the\s+)?(?:sun|moon)\s+(?:smiles?|smiling|frowns?|frowning)\b/i, reason: "pathetic_fallacy" },
+  { regex: /\bangry\s+(?:storm|sea|ocean|clouds?|wind)\b/i, reason: "pathetic_fallacy" },
+  { regex: /\b(?:the\s+)?(?:sea|ocean)\s+(?:is\s+)?(?:angry|furious|calm|peaceful)\b/i, reason: "pathetic_fallacy" },
+  { regex: /\b(?:the\s+)?wind\s+(?:whispers?|howls?|screams?|sighs?)\b/i, reason: "pathetic_fallacy" },
+  { regex: /\b(?:the\s+)?(?:trees?|flowers?)\s+(?:dance|dancing|sway|swaying|rejoice)\b/i, reason: "pathetic_fallacy" },
+  { regex: /\bnature\s+(?:mourns?|rejoices?|celebrates?|grieves?)\b/i, reason: "pathetic_fallacy" },
+
+  // === Hebrew: Pathetic Fallacy ===
+  { regex: /השמיים\s+(?:בוכים|עצובים|כועסים|שמחים)/, reason: "pathetic_fallacy" },
+  { regex: /השמש\s+(?:מחייכת|זורחת\s+בשמחה)/, reason: "pathetic_fallacy" },
+  { regex: /הים\s+(?:זועם|כועס|שליו|רגוע)/, reason: "pathetic_fallacy" },
+  { regex: /הרוח\s+(?:לוחשת|יללה|צורחת|נאנחת)/, reason: "pathetic_fallacy" },
+  { regex: /(?:העצים|הפרחים)\s+(?:רוקדים|שמחים)/, reason: "pathetic_fallacy" },
+  { regex: /הטבע\s+(?:מתאבל|שמח|חוגג)/, reason: "pathetic_fallacy" },
+  { regex: /סערה\s+(?:זועמת|כועסת)/, reason: "pathetic_fallacy" },
+
+  // ═══════════════════════════════════════════════════════════════════
+  // KARMA / MORAL LUCK: Belief in automatic cosmic justice
+  // ═══════════════════════════════════════════════════════════════════
+
+  // === English: Karma ===
+  { regex: /\bwhat\s+goes\s+around\s+comes\s+around\b/i, reason: "karma" },
+  { regex: /\bkarma\s+(?:is|will)\b/i, reason: "karma" },
+  { regex: /\b(?:good|bad)\s+karma\b/i, reason: "karma" },
+  { regex: /\bit\s+will\s+come\s+back\s+to\s+(?:you|them|him|her)\b/i, reason: "karma" },
+  { regex: /\b(?:you|they)\s+will\s+pay\s+for\s+(?:this|that|it)\b/i, reason: "karma" },
+  { regex: /\bthe\s+universe\s+will\s+(?:punish|reward|repay)\b/i, reason: "karma" },
+  { regex: /\bpoetic\s+justice\b/i, reason: "karma" },
+  { regex: /\bjust\s+desserts\b/i, reason: "karma" },
+
+  // === Hebrew: Karma ===
+  { regex: /מה\s+שהולך\s+חוזר/, reason: "karma" },
+  { regex: /זה\s+יחזור\s+(?:אליו|אליה|אליך|אליהם)/, reason: "karma" },
+  { regex: /(?:גמול|עונש)\s+(?:משמיים|מהיקום)/, reason: "karma" },
+  { regex: /ישלם\s+על\s+(?:זה|מעשיו)/, reason: "karma" },
+  { regex: /צדק\s+(?:פואטי|קוסמי)/, reason: "karma" },
+
+  // ═══════════════════════════════════════════════════════════════════
+  // CONSPIRACY PATTERNS: Attributing coordinated malicious intent to "them"
+  // ═══════════════════════════════════════════════════════════════════
+
+  // === English: Conspiracy ===
+  { regex: /\bthey\s+don't\s+want\s+(?:you|us)\s+to\s+know\b/i, reason: "conspiracy" },
+  { regex: /\bthey\s+(?:are\s+)?hiding\s+(?:the\s+truth|this|it)\b/i, reason: "conspiracy" },
+  { regex: /\bthe\s+(?:truth|real\s+story)\s+(?:they|that)\s+(?:hide|don't\s+want)\b/i, reason: "conspiracy" },
+  { regex: /\bwake\s+up\s+(?:sheeple|people)\b/i, reason: "conspiracy" },
+  { regex: /\bit's\s+all\s+(?:connected|planned|orchestrated)\b/i, reason: "conspiracy" },
+  { regex: /\b(?:the\s+)?(?:elites?|cabal|powers\s+that\s+be)\s+(?:want|control|plan)\b/i, reason: "conspiracy" },
+  { regex: /\bfollow\s+the\s+money\b/i, reason: "conspiracy" },
+  { regex: /\bopen\s+your\s+eyes\b/i, reason: "conspiracy" },
+  { regex: /\bthe\s+(?:mainstream\s+)?media\s+(?:lies?|won't\s+tell|hides?)\b/i, reason: "conspiracy" },
+
+  // === Hebrew: Conspiracy ===
+  { regex: /הם\s+(?:לא\s+רוצים\s+ש|מסתירים)/, reason: "conspiracy" },
+  { regex: /(?:האמת|הסיפור\s+האמיתי)\s+(?:שמסתירים|שלא\s+רוצים)/, reason: "conspiracy" },
+  { regex: /תתעוררו/, reason: "conspiracy" },
+  { regex: /הכל\s+(?:מתוכנן|מתואם|קשור)/, reason: "conspiracy" },
+  { regex: /(?:האליטות|השלטון)\s+(?:רוצים|שולטים|מתכננים)/, reason: "conspiracy" },
+  { regex: /(?:התקשורת|המדיה)\s+(?:משקרת|מסתירה|לא\s+מספרת)/, reason: "conspiracy" },
+  { regex: /תפתחו\s+(?:עיניים|את\s+העיניים)/, reason: "conspiracy" },
+
+  // ═══════════════════════════════════════════════════════════════════
+  // AGENT DETECTION BIAS: Seeing intention in randomness
+  // ═══════════════════════════════════════════════════════════════════
+
+  // === English: Agent Detection ===
+  { regex: /\beverything\s+happens\s+for\s+a\s+reason\b/i, reason: "agent_detection" },
+  { regex: /\bthere\s+(?:are\s+)?no\s+(?:such\s+thing\s+as\s+)?coincidences?\b/i, reason: "agent_detection" },
+  { regex: /\bit(?:'s|\s+is)\s+no\s+(?:accident|coincidence)\b/i, reason: "agent_detection" },
+  { regex: /\bit\s+was\s+(?:meant|supposed)\s+to\s+(?:be|happen)\b/i, reason: "agent_detection" },
+  { regex: /\bthings\s+happen\s+for\s+a\s+reason\b/i, reason: "agent_detection" },
+  { regex: /\bnothing\s+(?:is|happens)\s+by\s+(?:chance|accident)\b/i, reason: "agent_detection" },
+  { regex: /\b(?:there\s+)?must\s+be\s+a\s+reason\b/i, reason: "agent_detection" },
+  { regex: /\bsomeone\s+(?:or\s+something\s+)?is\s+(?:behind|responsible)\b/i, reason: "agent_detection" },
+
+  // === Hebrew: Agent Detection ===
+  { regex: /הכל\s+קורה\s+(?:מסיבה|לא\s+במקרה)/, reason: "agent_detection" },
+  { regex: /(?:אין|לא\s+קיימים)\s+(?:מקרים|צירופי\s+מקרים)/, reason: "agent_detection" },
+  { regex: /זה\s+(?:לא\s+מקרי|לא\s+במקרה)/, reason: "agent_detection" },
+  { regex: /זה\s+היה\s+(?:אמור|צריך)\s+לקרות/, reason: "agent_detection" },
+  { regex: /(?:בטח|חייב)\s+(?:יש|שיש)\s+סיבה/, reason: "agent_detection" },
+  { regex: /שום\s+דבר\s+לא\s+(?:קורה\s+)?במקרה/, reason: "agent_detection" },
+  { regex: /מישהו\s+(?:עומד\s+)?מאחורי\s+(?:זה|הכל)/, reason: "agent_detection" }
 ];
 
 /**
@@ -339,6 +518,201 @@ function rewriteSentence(sentence: string, reason: string): string {
   rewritten = rewritten.replace(/ההיסטוריה\s+מלמדת/gi, "דפוסים היסטוריים מצביעים על");
   rewritten = rewritten.replace(/ההיסטוריה\s+מוכיחה/gi, "ראיות היסטוריות מראות");
   rewritten = rewritten.replace(/ההתקדמות\s+דורשת/gi, "השגת התקדמות מחייבת");
+
+  // ═══════════════════════════════════════════════════════════════════
+  // JUST WORLD FALLACY REWRITES
+  // ═══════════════════════════════════════════════════════════════════
+
+  // === English: Just World ===
+  rewritten = rewritten.replace(/\b(?:he|she)\s+got\s+what\s+(?:he|she)\s+deserved\b/gi, "circumstances led to this outcome for them");
+  rewritten = rewritten.replace(/\bthey\s+got\s+what\s+they\s+deserved\b/gi, "circumstances led to this outcome for them");
+  rewritten = rewritten.replace(/\bdeserves?\s+(?:this|that|it)\b/gi, "this is the outcome they received");
+  rewritten = rewritten.replace(/\bhad\s+it\s+coming\b/gi, "this was a predictable consequence");
+  rewritten = rewritten.replace(/\breap\s+what\s+(?:you|they|we)\s+sow\b/gi, "actions have consequences");
+  rewritten = rewritten.replace(/\bgood\s+things\s+happen\s+to\s+good\s+people\b/gi, "outcomes vary regardless of character");
+  rewritten = rewritten.replace(/\bbad\s+things\s+happen\s+to\s+bad\s+people\b/gi, "outcomes vary regardless of character");
+
+  // === Hebrew: Just World ===
+  rewritten = rewritten.replace(/מגיע\s+(?:לו|לה|להם)/gi, "זו התוצאה שקיבל/ה");
+  rewritten = rewritten.replace(/קיבל\s+(?:את\s+)?מה\s+שמגיע/gi, "הנסיבות הובילו לתוצאה זו");
+  rewritten = rewritten.replace(/ראוי\s+לעונש/gi, "צפויה תוצאה שלילית");
+  rewritten = rewritten.replace(/צדק\s+נעשה/gi, "התקבלה תוצאה");
+
+  // ═══════════════════════════════════════════════════════════════════
+  // BODY TELEOLOGY REWRITES
+  // ═══════════════════════════════════════════════════════════════════
+
+  // === English: Body Teleology ===
+  rewritten = rewritten.replace(/\byour\s+body\s+knows\b/gi, "physiological processes indicate");
+  rewritten = rewritten.replace(/\byour\s+body\s+wants\b/gi, "your body's signals suggest a need for");
+  rewritten = rewritten.replace(/\byour\s+body\s+is\s+telling\s+you\b/gi, "physical symptoms may indicate");
+  rewritten = rewritten.replace(/\byour\s+body\s+is\s+trying\b/gi, "your body is responding by");
+  rewritten = rewritten.replace(/\blisten\s+to\s+your\s+body\b/gi, "pay attention to physical symptoms");
+  rewritten = rewritten.replace(/\byour\s+body\s+is\s+wise\b/gi, "your body has regulatory systems");
+  rewritten = rewritten.replace(/\byour\s+gut\s+knows\b/gi, "your intuitive response suggests");
+  rewritten = rewritten.replace(/\byour\s+heart\s+knows\b/gi, "your emotional response indicates");
+  rewritten = rewritten.replace(/\binnate\s+wisdom\b/gi, "evolved mechanisms");
+
+  // === Hebrew: Body Teleology ===
+  rewritten = rewritten.replace(/הגוף\s+יודע/gi, "תהליכים פיזיולוגיים מצביעים על");
+  rewritten = rewritten.replace(/הגוף\s+רוצה/gi, "איתותי הגוף מרמזים על צורך ב");
+  rewritten = rewritten.replace(/הגוף\s+מנסה/gi, "הגוף מגיב באמצעות");
+  rewritten = rewritten.replace(/תקשיב\s+לגוף/gi, "שים לב לסימפטומים הפיזיים");
+  rewritten = rewritten.replace(/הגוף\s+חכם/gi, "לגוף יש מערכות ויסות");
+  rewritten = rewritten.replace(/הבטן\s+יודעת/gi, "התגובה האינטואיטיבית שלך מרמזת");
+  rewritten = rewritten.replace(/הלב\s+יודע/gi, "התגובה הרגשית שלך מצביעה על");
+  rewritten = rewritten.replace(/חוכמה\s+(?:פנימית|מולדת)/gi, "מנגנונים שהתפתחו");
+
+  // ═══════════════════════════════════════════════════════════════════
+  // TECHNOLOGY ANIMISM REWRITES
+  // ═══════════════════════════════════════════════════════════════════
+
+  // === English: Technology Animism ===
+  rewritten = rewritten.replace(/\bthe?\s*computer\s+hates\s+me\b/gi, "the computer is malfunctioning");
+  rewritten = rewritten.replace(/\bthe?\s*computer\s+wants\b/gi, "the computer is configured to");
+  rewritten = rewritten.replace(/\bthe?\s*computer\s+refuses\b/gi, "the computer cannot process");
+  rewritten = rewritten.replace(/\bthe?\s*printer\s+hates\b/gi, "the printer is malfunctioning");
+  rewritten = rewritten.replace(/\bthe?\s*printer\s+refuses\b/gi, "the printer cannot process");
+  rewritten = rewritten.replace(/\bthe?\s*app\s+wants\b/gi, "the app is designed to");
+  rewritten = rewritten.replace(/\bthe?\s*app\s+refuses\b/gi, "the app cannot");
+  rewritten = rewritten.replace(/\btechnology\s+hates\b/gi, "technology is failing");
+
+  // === Hebrew: Technology Animism ===
+  rewritten = rewritten.replace(/המחשב\s+שונא\s+אותי/gi, "המחשב לא עובד כראוי");
+  rewritten = rewritten.replace(/המחשב\s+רוצה/gi, "המחשב מוגדר ל");
+  rewritten = rewritten.replace(/המחשב\s+מסרב/gi, "המחשב לא מצליח לעבד");
+  rewritten = rewritten.replace(/המדפסת\s+(?:שונאת|מסרבת)/gi, "המדפסת לא עובדת כראוי");
+  rewritten = rewritten.replace(/האפליקציה\s+רוצה/gi, "האפליקציה מתוכננת ל");
+  rewritten = rewritten.replace(/האפליקציה\s+מסרבת/gi, "האפליקציה לא יכולה");
+  rewritten = rewritten.replace(/הטכנולוגיה\s+שונאת/gi, "הטכנולוגיה לא תקינה");
+
+  // ═══════════════════════════════════════════════════════════════════
+  // DIVINE TELEOLOGY REWRITES
+  // ═══════════════════════════════════════════════════════════════════
+
+  // === English: Divine Teleology ===
+  rewritten = rewritten.replace(/\bgod\s+wants\b/gi, "religious belief holds that");
+  rewritten = rewritten.replace(/\bgod\s+has\s+a\s+plan\b/gi, "some believe there is a purpose behind events");
+  rewritten = rewritten.replace(/\bgod's\s+plan\b/gi, "the religious concept of divine purpose");
+  rewritten = rewritten.replace(/\bdivine\s+plan\b/gi, "the concept of predetermined purpose");
+  rewritten = rewritten.replace(/\bdivine\s+purpose\b/gi, "a sense of meaning or purpose");
+  rewritten = rewritten.replace(/\bit's\s+a\s+test\s+from\s+god\b/gi, "this situation is challenging");
+  rewritten = rewritten.replace(/\bit's\s+a\s+sign\s+from\s+(?:god|above)\b/gi, "this coincidence is notable");
+  rewritten = rewritten.replace(/\bblessed\s+with\b/gi, "fortunate to have");
+  rewritten = rewritten.replace(/\bcursed\s+with\b/gi, "burdened with");
+  rewritten = rewritten.replace(/\bprovidence\b/gi, "fortunate circumstances");
+
+  // === Hebrew: Divine Teleology ===
+  rewritten = rewritten.replace(/אלוהים\s+רוצה/gi, "על פי אמונה דתית");
+  rewritten = rewritten.replace(/תוכנית\s+(?:ה['׳]|אלוהים)/gi, "המושג הדתי של מטרה אלוהית");
+  rewritten = rewritten.replace(/השגחה\s+(?:עליונה|פרטית)/gi, "נסיבות שקרו");
+  rewritten = rewritten.replace(/מבחן\s+מלמעלה/gi, "מצב מאתגר");
+  rewritten = rewritten.replace(/סימן\s+מלמעלה/gi, "צירוף מקרים בולט");
+  rewritten = rewritten.replace(/מבורך\s+ב/gi, "בר מזל עם");
+  rewritten = rewritten.replace(/מקולל\s+ב/gi, "נושא בנטל של");
+  rewritten = rewritten.replace(/הכל\s+בהשגחה/gi, "האירועים התרחשו");
+  rewritten = rewritten.replace(/גזירת\s+(?:שמיים|גורל)/gi, "נסיבות שלא בשליטתנו");
+
+  // ═══════════════════════════════════════════════════════════════════
+  // PATHETIC FALLACY REWRITES
+  // ═══════════════════════════════════════════════════════════════════
+
+  // === English: Pathetic Fallacy ===
+  rewritten = rewritten.replace(/\bthe\s+(?:sky|skies)\s+(?:cry|cries|is\s+crying)\b/gi, "it is raining");
+  rewritten = rewritten.replace(/\bthe\s+(?:sky|skies)\s+(?:weep|weeps|is\s+weeping)\b/gi, "it is raining");
+  rewritten = rewritten.replace(/\bthe\s+sun\s+(?:smiles?|is\s+smiling)\b/gi, "the sun is shining brightly");
+  rewritten = rewritten.replace(/\bangry\s+storm\b/gi, "intense storm");
+  rewritten = rewritten.replace(/\bangry\s+sea\b/gi, "turbulent sea");
+  rewritten = rewritten.replace(/\bthe\s+sea\s+is\s+angry\b/gi, "the sea is turbulent");
+  rewritten = rewritten.replace(/\bthe\s+wind\s+whispers\b/gi, "the wind blows gently");
+  rewritten = rewritten.replace(/\bthe\s+wind\s+howls\b/gi, "the wind blows strongly");
+  rewritten = rewritten.replace(/\bthe\s+wind\s+screams\b/gi, "the wind blows violently");
+  rewritten = rewritten.replace(/\bnature\s+mourns\b/gi, "the environment appears somber");
+  rewritten = rewritten.replace(/\bnature\s+rejoices\b/gi, "conditions are favorable");
+
+  // === Hebrew: Pathetic Fallacy ===
+  rewritten = rewritten.replace(/השמיים\s+בוכים/gi, "יורד גשם");
+  rewritten = rewritten.replace(/השמיים\s+עצובים/gi, "השמיים מעוננים");
+  rewritten = rewritten.replace(/השמש\s+מחייכת/gi, "השמש זורחת בעוצמה");
+  rewritten = rewritten.replace(/הים\s+זועם/gi, "הים סוער");
+  rewritten = rewritten.replace(/הים\s+כועס/gi, "הים סוער");
+  rewritten = rewritten.replace(/הרוח\s+לוחשת/gi, "הרוח נושבת בעדינות");
+  rewritten = rewritten.replace(/הרוח\s+יללה/gi, "הרוח נושבת בעוצמה");
+  rewritten = rewritten.replace(/הטבע\s+מתאבל/gi, "הסביבה נראית קודרת");
+  rewritten = rewritten.replace(/הטבע\s+שמח/gi, "התנאים נוחים");
+  rewritten = rewritten.replace(/סערה\s+זועמת/gi, "סערה עזה");
+
+  // ═══════════════════════════════════════════════════════════════════
+  // KARMA REWRITES
+  // ═══════════════════════════════════════════════════════════════════
+
+  // === English: Karma ===
+  rewritten = rewritten.replace(/\bwhat\s+goes\s+around\s+comes\s+around\b/gi, "actions can have consequences");
+  rewritten = rewritten.replace(/\bkarma\s+will\b/gi, "consequences may follow");
+  rewritten = rewritten.replace(/\bgood\s+karma\b/gi, "positive outcomes");
+  rewritten = rewritten.replace(/\bbad\s+karma\b/gi, "negative outcomes");
+  rewritten = rewritten.replace(/\bit\s+will\s+come\s+back\s+to\s+(?:you|them)\b/gi, "there may be consequences");
+  rewritten = rewritten.replace(/\bthe\s+universe\s+will\s+punish\b/gi, "there may be negative consequences for");
+  rewritten = rewritten.replace(/\bthe\s+universe\s+will\s+reward\b/gi, "positive outcomes may follow");
+  rewritten = rewritten.replace(/\bpoetic\s+justice\b/gi, "an ironic outcome");
+  rewritten = rewritten.replace(/\bjust\s+desserts\b/gi, "consequences of actions");
+
+  // === Hebrew: Karma ===
+  rewritten = rewritten.replace(/מה\s+שהולך\s+חוזר/gi, "לפעולות יש השלכות");
+  rewritten = rewritten.replace(/זה\s+יחזור\s+(?:אליו|אליה|אליהם)/gi, "עשויות להיות השלכות");
+  rewritten = rewritten.replace(/גמול\s+משמיים/gi, "תוצאות אפשריות");
+  rewritten = rewritten.replace(/עונש\s+משמיים/gi, "השלכות שליליות אפשריות");
+  rewritten = rewritten.replace(/ישלם\s+על\s+זה/gi, "עשויות להיות השלכות");
+  rewritten = rewritten.replace(/צדק\s+פואטי/gi, "תוצאה אירונית");
+  rewritten = rewritten.replace(/קארמה/gi, "השלכות של פעולות");
+
+  // ═══════════════════════════════════════════════════════════════════
+  // CONSPIRACY REWRITES
+  // ═══════════════════════════════════════════════════════════════════
+
+  // === English: Conspiracy ===
+  rewritten = rewritten.replace(/\bthey\s+don't\s+want\s+you\s+to\s+know\b/gi, "this information is not widely publicized");
+  rewritten = rewritten.replace(/\bthey\s+(?:are\s+)?hiding\s+the\s+truth\b/gi, "the full information may not be available");
+  rewritten = rewritten.replace(/\bwake\s+up\s+(?:sheeple|people)\b/gi, "consider this perspective");
+  rewritten = rewritten.replace(/\bit's\s+all\s+connected\b/gi, "these events may be related");
+  rewritten = rewritten.replace(/\bit's\s+all\s+planned\b/gi, "this appears coordinated");
+  rewritten = rewritten.replace(/\bthe\s+elites?\s+want\b/gi, "wealthy or powerful individuals may prefer");
+  rewritten = rewritten.replace(/\bfollow\s+the\s+money\b/gi, "examine financial incentives");
+  rewritten = rewritten.replace(/\bopen\s+your\s+eyes\b/gi, "consider alternative explanations");
+  rewritten = rewritten.replace(/\bthe\s+media\s+lies\b/gi, "media reports may have biases");
+
+  // === Hebrew: Conspiracy ===
+  rewritten = rewritten.replace(/הם\s+לא\s+רוצים\s+ש/gi, "מידע זה לא מפורסם ברבים ש");
+  rewritten = rewritten.replace(/הם\s+מסתירים/gi, "המידע המלא אולי לא זמין");
+  rewritten = rewritten.replace(/תתעוררו/gi, "שקלו את הנקודה הזו");
+  rewritten = rewritten.replace(/הכל\s+מתוכנן/gi, "זה נראה מתואם");
+  rewritten = rewritten.replace(/הכל\s+(?:מתואם|קשור)/gi, "ייתכן שהאירועים קשורים");
+  rewritten = rewritten.replace(/(?:האליטות|השלטון)\s+רוצים/gi, "בעלי עוצמה עשויים להעדיף");
+  rewritten = rewritten.replace(/(?:התקשורת|המדיה)\s+משקרת/gi, "דיווחי התקשורת עשויים להכיל הטיות");
+  rewritten = rewritten.replace(/תפתחו\s+(?:את\s+ה)?עיניים/gi, "שקלו הסברים חלופיים");
+
+  // ═══════════════════════════════════════════════════════════════════
+  // AGENT DETECTION REWRITES
+  // ═══════════════════════════════════════════════════════════════════
+
+  // === English: Agent Detection ===
+  rewritten = rewritten.replace(/\beverything\s+happens\s+for\s+a\s+reason\b/gi, "events have causes, though not necessarily purposes");
+  rewritten = rewritten.replace(/\bthere\s+(?:are\s+)?no\s+coincidences?\b/gi, "this could be a coincidence or have an explanation");
+  rewritten = rewritten.replace(/\bit(?:'s|\s+is)\s+no\s+(?:accident|coincidence)\b/gi, "this may or may not be coincidental");
+  rewritten = rewritten.replace(/\bit\s+was\s+meant\s+to\s+(?:be|happen)\b/gi, "this is how events unfolded");
+  rewritten = rewritten.replace(/\bthings\s+happen\s+for\s+a\s+reason\b/gi, "events have causes");
+  rewritten = rewritten.replace(/\bnothing\s+(?:is|happens)\s+by\s+(?:chance|accident)\b/gi, "many events have identifiable causes, while some involve chance");
+  rewritten = rewritten.replace(/\b(?:there\s+)?must\s+be\s+a\s+reason\b/gi, "there may be an explanation");
+  rewritten = rewritten.replace(/\bsomeone\s+(?:or\s+something\s+)?is\s+behind\b/gi, "there may be an explanation for");
+
+  // === Hebrew: Agent Detection ===
+  rewritten = rewritten.replace(/הכל\s+קורה\s+מסיבה/gi, "לאירועים יש גורמים, אם כי לאו דווקא מטרות");
+  rewritten = rewritten.replace(/(?:אין|לא\s+קיימים)\s+(?:מקרים|צירופי\s+מקרים)/gi, "זה יכול להיות צירוף מקרים או שיש הסבר");
+  rewritten = rewritten.replace(/זה\s+(?:לא\s+מקרי|לא\s+במקרה)/gi, "זה עשוי להיות מקרי או לא");
+  rewritten = rewritten.replace(/זה\s+היה\s+(?:אמור|צריך)\s+לקרות/gi, "כך האירועים התפתחו");
+  rewritten = rewritten.replace(/(?:בטח|חייב)\s+(?:יש|שיש)\s+סיבה/gi, "ייתכן שיש הסבר");
+  rewritten = rewritten.replace(/שום\s+דבר\s+לא\s+(?:קורה\s+)?במקרה/gi, "לאירועים רבים יש גורמים, אך חלקם מקריים");
+  rewritten = rewritten.replace(/מישהו\s+(?:עומד\s+)?מאחורי\s+(?:זה|הכל)/gi, "ייתכן שיש הסבר ל");
 
   return rewritten;
 }
