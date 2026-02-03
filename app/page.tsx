@@ -9,9 +9,8 @@ export default function HonestraLandingPage() {
         <header className="honestra-header">
           <div className="honestra-logo-block">
             <div className="honestra-logo-circle">
-              {/* השתמש בלוגו שלך ששמו honestra-shield.png בתקיית public */}
               <img
-                src="/honestra-shield.png"
+                src="/Logo/Honestra_logo.png"
                 alt="Honestra shield logo"
                 className="honestra-logo-img"
               />
